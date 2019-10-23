@@ -1,4 +1,7 @@
 package com.example.android.ce301charityapp.Data
 
-class AnimalProgressPoints {
-}
+data class AnimalProgressPoints (
+    val ID: Int,
+    val animalID: Int,
+    val progressDescription: String
+    )

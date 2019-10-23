@@ -1,4 +1,8 @@
 package com.example.android.ce301charityapp.Data
 
-class User {
-}
+data class User (
+    val ID: Int,
+    val name: String,
+    val userName: String,
+    val password: String
+)
