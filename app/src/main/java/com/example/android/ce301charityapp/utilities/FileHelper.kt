@@ -1,6 +1,8 @@
 package com.example.android.ce301charityapp.utilities
 
+import android.app.Application
 import android.content.Context
+import java.io.File
 
 class FileHelper {
     companion object {
@@ -19,6 +21,18 @@ class FileHelper {
                     it.readText()
                 }
             }
+        }
+
+        fun saveTextToFile(app: Application, json: String?) {
+            val file = File(app.getExternalFilesDir("animals"), "animals.json")
+            file.writeText(json ?: "", Charsets.UTF_8)
+        }
+
+        fun readTextFile(app: Application): String? {
+            val file = File(app.getExternalFilesDir("animals"), "animals.json")
+            return if (file.exists()) {
+                file.readText()
+            } else null
         }
     }
 }
