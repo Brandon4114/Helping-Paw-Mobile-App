@@ -36,15 +36,4 @@
         app:layout_constraintDimensionRatio="1:1"
         tools:ignore="HardcodedText"/>
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:isIndicator="true"
-        style="?android:attr/ratingBarStyleSmall"
-        app:layout_constraintTop_toBottomOf="@+id/animalImage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
