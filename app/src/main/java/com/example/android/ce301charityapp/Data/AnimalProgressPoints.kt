@@ -8,5 +8,6 @@ data class AnimalProgressPoints (
     @PrimaryKey(autoGenerate = true)
     val ID: Int,
     val animalID: Int,
+    val animalPoint: Int,
     val progressDescription: String
     )

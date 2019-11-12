@@ -28,7 +28,8 @@ class MainFragment : Fragment(),
 
 
     override fun AnimalItemListener(animal: Animal) {
-
+        viewModel.selectedAnimal.value = animal
+        navController.navigate(R.id.action_nav_detail)
     }
 
     override fun onCreateView(

@@ -6,10 +6,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Animal::class], version = 1, exportSchema = false)
+@Database(entities = [Animal::class,AnimalImages::class, AnimalProgressPoints::class, User::class], version = 3, exportSchema = false)
 abstract class AnimalDatabase: RoomDatabase() {
 
     abstract fun animalDao(): AnimalDao
+    abstract fun animalImagesDao(): AnimalImagesDao
+    abstract fun animalProgressPoints(): AnimalProgressPointsDao
+    abstract fun user(): UserDao
 
     companion object{
         @Volatile
@@ -22,7 +25,7 @@ abstract class AnimalDatabase: RoomDatabase() {
                      context.applicationContext,
                      AnimalDatabase::class.java,
                      "animals.db"
-                 ).build()
+                 ).fallbackToDestructiveMigration().build()
              }
             }
             return INSTANCE!!

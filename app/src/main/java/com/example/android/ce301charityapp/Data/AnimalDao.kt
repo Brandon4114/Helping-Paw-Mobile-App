@@ -11,7 +11,7 @@ interface AnimalDao {
     fun getAll(): List<Animal>
 
     @Insert
-    suspend fun insertAnimals(monsters: List<Animal>)
+    suspend fun insertAnimals(animals: List<Animal>)
 
     @Query("DELETE from animals")
     suspend fun deleteAll()
