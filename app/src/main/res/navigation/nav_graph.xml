@@ -12,8 +12,13 @@
         tools:layout="@layout/main_fragment">
         <action
             android:id="@+id/action_nav_detail"
-            app:destination="@id/action_nav_detail"/>
+            app:destination="@id/detailFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.example.android.ce301charityapp.ui.detail.detailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail"/>
 
 
 </navigation>

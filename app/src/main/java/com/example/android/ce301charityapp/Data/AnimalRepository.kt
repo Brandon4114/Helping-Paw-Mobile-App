@@ -22,11 +22,20 @@ class AnimalRepository(val app: Application) {
     val animalData = MutableLiveData<List<Animal>>()
     private val animalDao = AnimalDatabase.getDatabase(app).animalDao()
     private val animalImagesDao = AnimalDatabase.getDatabase(app).animalImagesDao()
-    private val animalProgressPaointsDao = AnimalDatabase.getDatabase(app).animalProgressPoints()
+    private val animalProgressPointsDao = AnimalDatabase.getDatabase(app).animalProgressPoints()
     private val userDao = AnimalDatabase.getDatabase(app).user()
 
-    private val listType = Types.newParameterizedType(
+    private val listType1 = Types.newParameterizedType(
         List::class.java, Animal::class.java
+    )
+    private val listType2 = Types.newParameterizedType(
+        List::class.java, AnimalProgressPoints::class.java
+    )
+    private val listType3 = Types.newParameterizedType(
+        List::class.java, AnimalImages::class.java
+    )
+    private val listType4 = Types.newParameterizedType(
+        List::class.java, User::class.java
     )
 
 
@@ -36,8 +45,8 @@ class AnimalRepository(val app: Application) {
             if (data.isEmpty()) {
 //                callWebService()
 
-                val animaldata = FileHelper.getTextFromAssets(app, "animal_data.json" )
-                parseJsonAnimalData(animaldata)
+                val animalData = FileHelper.getTextFromAssets(app, "animal_data.json" )
+                parseJsonAnimalData(animalData)
 
                 val animalProgressData = FileHelper.getTextFromAssets(app, "animal_progress_data.json")
                 parseJsonAnimalProgressData(animalProgressData)
@@ -60,9 +69,10 @@ class AnimalRepository(val app: Application) {
     private suspend fun parseJsonAnimalData(text:String){
 
         val moshi = Moshi.Builder().build()
-        val adapter: JsonAdapter<List<Animal>> = moshi.adapter(listType)
+        val adapter: JsonAdapter<List<Animal>> = moshi.adapter(listType1)
 
         val animalData : List<Animal>? = adapter.fromJson(text)
+
 
         //animalData.postValue(data)
         animalDao.deleteAll()
@@ -76,7 +86,7 @@ class AnimalRepository(val app: Application) {
     }
     private suspend fun parseJsonAnimalImageData(text: String){
         val moshi = Moshi.Builder().build()
-        val adapter: JsonAdapter<List<AnimalImages>> = moshi.adapter(listType)
+        val adapter: JsonAdapter<List<AnimalImages>> = moshi.adapter(listType3)
 
         val animalImageData : List<AnimalImages>? = adapter.fromJson(text)
         animalImagesDao.deleteAll()
@@ -84,31 +94,43 @@ class AnimalRepository(val app: Application) {
         if (animalImageData != null) {
             animalImagesDao.insertAnimalImages(animalImageData)
         }
+        Log.i(LOG_TAG, "break")
+        for (animal in animalImageData ?: emptyList()){
+            Log.i(LOG_TAG, "${animal.animalID} ${animal.imageName}")
+        }
 
     }
 
     private suspend fun parseJsonAnimalProgressData(text: String){
         val moshi = Moshi.Builder().build()
-        val adapter: JsonAdapter<List<AnimalProgressPoints>> = moshi.adapter(listType)
+        val adapter: JsonAdapter<List<AnimalProgressPoints>> = moshi.adapter(listType2)
 
         val animalProgressData : List<AnimalProgressPoints>? = adapter.fromJson(text)
-        animalProgressPaointsDao.deleteAll()
+        animalProgressPointsDao.deleteAll()
 
         if (animalProgressData != null) {
-            animalProgressPaointsDao.insertAnimalProgress(animalProgressData)
+            animalProgressPointsDao.insertAnimalProgress(animalProgressData)
+        }
+        Log.i(LOG_TAG, "break")
+        for (progressPoint in animalProgressData ?: emptyList()){
+            Log.i(LOG_TAG, "${progressPoint.animalPoint} ${progressPoint.progressDescription}")
         }
 
     }
 
     private suspend fun parseJsonUserData(text: String){
         val moshi = Moshi.Builder().build()
-        val adapter: JsonAdapter<List<User>> = moshi.adapter(listType)
+        val adapter: JsonAdapter<List<User>> = moshi.adapter(listType4)
 
         val userData : List<User>? = adapter.fromJson(text)
         userDao.deleteAll()
 
         if (userData != null) {
             userDao.insertUsers(userData)
+        }
+        Log.i(LOG_TAG, "break")
+        for (animal in userData ?: emptyList()){
+            Log.i(LOG_TAG, "${animal.userName} ${animal.name}")
         }
 
     }
