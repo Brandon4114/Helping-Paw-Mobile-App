@@ -14,14 +14,14 @@
         android:layout_width="50dp"
         android:layout_height="0dp"
         android:layout_margin="8dp"
-        android:scaleType="centerCrop"
         android:contentDescription="A monster"
-        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintDimensionRatio="1:1"
-        tools:src=""
-        tools:ignore="HardcodedText"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText"
+        android:src="@drawable/pet1" />
 
     <TextView
         android:id="@+id/nameText"

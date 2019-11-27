@@ -36,9 +36,9 @@
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-
+            android:src="@drawable/pet1"
             app:layout_constraintTop_toTopOf="parent"
-            tools:contentDescription="Monster name" />
+            tools:contentDescription="Animal name" />
 
         <TextView
             android:id="@+id/descriptionText"
@@ -50,6 +50,7 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="@{viewModel.selectedAnimal.animalDescription}" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
