@@ -1,4 +1,4 @@
-package com.example.androiddata.ui.shared
+package com.example.android.ce301charityapp.ui.shared
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -15,10 +15,6 @@ class SharedViewModel(val app: Application) : AndroidViewModel(app) {
 
     init {
         updateActivityTitle()
-    }
-
-    fun refreshData() {
-        dataRepo.refreshDataFromWeb()
     }
 
     fun updateActivityTitle(){

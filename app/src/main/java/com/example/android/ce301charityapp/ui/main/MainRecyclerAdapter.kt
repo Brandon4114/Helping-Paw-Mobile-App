@@ -2,10 +2,8 @@ package com.example.android.ce301charityapp.ui.main
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.ce301charityapp.Data.Animal
@@ -16,7 +14,7 @@ import com.example.android.ce301charityapp.ui.utiilities.PreferenceHelper
 class MainRecyclerAdapter(
     val context: Context,
     val animals: List<Animal>,
-    val itemListener: AnimalItemListener):
+    private val itemListener: AnimalItemListener):
     RecyclerView.Adapter<MainRecyclerAdapter.ViewHolder>()
 {
     override fun getItemCount() =animals.size
@@ -38,11 +36,9 @@ class MainRecyclerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val animal = animals[position]
         with(holder){
-            animalName?. let{
-                it.text = animal.animalName
-            }
+            animalName.text = animal.animalName
             holder.itemView.setOnClickListener{
-                itemListener.AnimalItemListener(animal)
+                itemListener.animalItemListener(animal)
             }
         }
     }
@@ -50,13 +46,11 @@ class MainRecyclerAdapter(
 
     inner class ViewHolder(itemView: View):
             RecyclerView.ViewHolder(itemView){
-        val animalName = itemView.findViewById<TextView>(R.id.nameText)
-        val animalImage = itemView.findViewById<ImageView>(R.id.animalImage)
-        val animalDescription =  itemView.findViewById<TextView>(R.id.nameText)
+        val animalName: TextView = itemView.findViewById(R.id.nameText)
 
     }
     interface AnimalItemListener {
-        fun AnimalItemListener(animal: Animal)
+        fun animalItemListener(animal: Animal)
     }
 
 

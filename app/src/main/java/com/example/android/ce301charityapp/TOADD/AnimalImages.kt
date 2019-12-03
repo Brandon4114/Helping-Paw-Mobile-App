@@ -1,4 +1,4 @@
-package com.example.android.ce301charityapp.Data
+package com.example.android.ce301charityapp.TOADD
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

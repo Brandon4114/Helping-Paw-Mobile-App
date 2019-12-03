@@ -8,7 +8,7 @@
 
         <variable
                 name="viewModel"
-                type="com.example.androiddata.ui.shared.SharedViewModel"/>
+                type="com.example.android.ce301charityapp.ui.shared.SharedViewModel"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,5 +1,6 @@
 package com.example.android.ce301charityapp.ui.main
 
+import android.app.Application
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -11,23 +12,21 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.android.ce301charityapp.Data.Animal
 import com.example.android.ce301charityapp.R
 import com.example.android.ce301charityapp.ui.utiilities.PreferenceHelper
-import com.example.androiddata.ui.shared.SharedViewModel
+import com.example.android.ce301charityapp.ui.shared.SharedViewModel
 
 class MainFragment : Fragment(),
     MainRecyclerAdapter.AnimalItemListener{
 
     private lateinit var viewModel: SharedViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var swipeLayout: SwipeRefreshLayout
     private lateinit var navController: NavController
     private lateinit var adapter: MainRecyclerAdapter
 
 
-    override fun AnimalItemListener(animal: Animal) {
+    override fun animalItemListener(animal: Animal) {
         viewModel.selectedAnimal.value = animal
         navController.navigate(R.id.action_nav_detail)
     }
@@ -56,15 +55,14 @@ class MainFragment : Fragment(),
             requireActivity(), R.id.nav_host
         )
 
-        swipeLayout = view.findViewById(R.id.swipeLayout)
-
         viewModel = ViewModelProviders.of(requireActivity()).get(SharedViewModel::class.java)
         viewModel.animalData.observe(this, Observer
         {
 
             adapter = MainRecyclerAdapter(requireContext(), it, this)
+            recyclerView.layoutManager =
+                LinearLayoutManager(requireContext())
             recyclerView.adapter = adapter
-            swipeLayout.isRefreshing = false
         })
 
         viewModel.activityTitle.observe(this, Observer {

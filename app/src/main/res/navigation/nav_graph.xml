@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
-        android:name="com.example.android.ce301charityapp.ui.detail.detailFragment"
+        android:name="com.example.android.ce301charityapp.ui.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail"/>
 

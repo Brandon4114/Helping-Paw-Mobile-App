@@ -12,9 +12,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.android.ce301charityapp.R
 import com.example.android.ce301charityapp.databinding.FragmentDetailBinding
-import com.example.androiddata.ui.shared.SharedViewModel
+import com.example.android.ce301charityapp.ui.shared.SharedViewModel
 
-class detailFragment : Fragment() {
+class DetailFragment : Fragment() {
 
     private lateinit var viewModel: SharedViewModel
     private lateinit var navController: NavController
