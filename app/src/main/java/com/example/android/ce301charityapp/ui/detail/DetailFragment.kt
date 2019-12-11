@@ -44,6 +44,9 @@ class DetailFragment : Fragment() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == android.R.id.home) {
+            navController.navigateUp()
+        }
         return super.onOptionsItemSelected(item)
     }
 
