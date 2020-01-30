@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('animal/index');
-});
+Route::get('/', 'AnimalController@index');
 
 Route::resources([
   'animals' => 'AnimalController',
