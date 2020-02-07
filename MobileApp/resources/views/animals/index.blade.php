@@ -15,24 +15,28 @@
         </ul>
 
       </nav>
-      <h1>All progress points</h1>
-      <h2><a href="/progress/create">Add Progress point</a></h2>
+      <h1>All animals</h1>
+      <h2 class="float"><a href="/animals/create">Add animal</a></h2>
 
         <table class="table table-striped table-bordered">
           <thead>
             <tr>
-              <th>Progress Point</th>
+              <th>Name</th>
               <th>Description</th>
               <th></th>
               <th></th>
             </tr>
-        </thead>
 
-        @foreach ($progress as $key => $value)
+        @foreach ($animals as $key => $value)
           <tr>
-            <td><?php echo $value->imageName ?></td>
-            <td><?php echo $value->imageType ?></td>
-            <td><a href="/images/{{$value->id}}"/>edit</td>
+            <td><?php echo $value->animalName ?></td>
+            <td><?php echo $value->animalDescription ?></td>
+            <td><a href="/animals/{{$value->id}}/edit" class="btn btn-info"/>edit</td>
+              <td>
+                {{ Form::open(array('url' => 'animals/' . $value->id)) }}
+                    {{ Form::hidden('_method', 'DELETE') }}
+                    {{ Form::submit('Delete Animal', array('class' => 'btn btn-warning')) }}
+                {{ Form::close() }}</td>
           </tr>
         @endforeach
           </table>

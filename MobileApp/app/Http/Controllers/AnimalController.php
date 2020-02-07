@@ -2,9 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+
 use App\Animals;
 use View;
+use Illuminate\Support\Facades\Validator;
+use Request;
+use Session;
+use Redirect;
+use Illuminate\Support\Facades\Input;
 class AnimalController extends Controller
 {
     /**
@@ -15,7 +20,7 @@ class AnimalController extends Controller
     public function index()
     {
       $animals = Animals::all();
-       return View::make('animal.index')->with('animals',$animals);
+       return View::make('animals.index')->with('animals',$animals);
     }
 
     /**
@@ -43,16 +48,16 @@ class AnimalController extends Controller
         'animalDescription' => 'required'
       );
 
-      $validator = Validator::make(Input::all(), $rules);
+      $validator = Validator::make(Request::all(), $rules);
 
       if ($validator->fails()) {
         return Redirect::to('animals/create')
           ->withErrors($validator)
-          ->withInput(Input::except('password'));
+          ->withInput(Request::except('password'));
       } else {
         $animal = new Animals;
-        $animal->animalName = Input::get('animalName');
-        $animal->animalDescription = Input::get('animalDescription');
+        $animal->animalName = Request::get('animalName');
+        $animal->animalDescription = Request::get('animalDescription');
         $animal->save();
 
 
@@ -86,22 +91,26 @@ class AnimalController extends Controller
     {
       $animal = Animals::find($id);
 
-      return View::make('animal.edit')->with('animal',$animal);
+      return View::make('animals.edit')->with('animal',$animal);
 
     }
 
     public function update($id)
     {
-      $validator = Validator::make(Input::all(), $rules);
+      $rules = array(
+        'animalName'        => 'required',
+        'animalDescription' => 'required'
+      );
+      $validator = Validator::make(Request::all(), $rules);
 
       if ($validator->fails()) {
         return Redirect::to('animals'.$id.'/edit')
           ->withErrors($validator)
-          ->withInput(Input::except('password'));
+          ->withInput(Request::except('password'));
       } else {
         $animal = Animals::find($id);
-        $animal->animalName = Input::get('animalName');
-        $animal->animalDescription = Input::get('animalDescription');
+        $animal->animalName = Request::get('animalName');
+        $animal->animalDescription = Request::get('animalDescription');
         $animal->save();
 
 

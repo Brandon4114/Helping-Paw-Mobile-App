@@ -1,11 +1,12 @@
-progress<?php
+<?php
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Progress;
 use View;
-class ImageController extends Controller
+use App\Animals;
+class ProgressController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +26,8 @@ class ImageController extends Controller
      */
     public function create()
     {
-        return View::make('progress.create');
+        $animals = Animals::pluck('animalName','id')->toArray();
+        return View::make('progress.create')->with('animals',$animals);
     }
 
     /**
@@ -36,20 +38,22 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //Storage::put('$request->image');        $rules = array(
+        //Storage::put('$request->image');
+        $rules = array(
+          'animalID'  =>  'required',
           'progressDescription' => 'required',
 
         );
-        $validator = Validator::make(Input::all(), $rules);
+        $validator = Validator::make(Request::all(), $rules);
 
         if ($validator->fails()){
           return Redirect::to('progress/create')
             ->withErrors($validator)
-            ->withInput(Input::except('password'));
+            ->withInput(Request::except('password'));
         } else {
           $progress= new Progress;
-          $progress->progressDescription = Input::get('progressDescription');
-          $progress->animalID = Input::get('animalID');
+          $progress->progressDescription = Request::get('progressDescription');
+          $progress->animalID = Request::get('animalID');
           $progress->save();
 
           Session::flash('message','progress successfully stored');
@@ -78,7 +82,7 @@ class ImageController extends Controller
     public function edit($id)
     {
       $progress= Progress::find($id);
-      return View::make('progress.edit')->with('progress',$progress)
+      return View::make('progress.edit')->with('progress',$progress);
     }
 
     /**
@@ -90,16 +94,16 @@ class ImageController extends Controller
      */
     public function update( $id)
     {
-      $validator = Validator::make(Input::all(), $rules);
+      $validator = Validator::make(Request::all(), $rules);
 
       if ($validator->fails()){
         return Redirect::to('Progress/'.$id.'create')
           ->withErrors($validator)
-          ->withInput(Input::except('password'));
+          ->withInput(Request::except('password'));
       } else {
-        $progress= Progress::find($id)
-        $progress->progressDescription = Input::get('progressDescription');
-        $progress->animalID = Input::get('animalID');
+        $progress= Progress::find($id);
+        $progress->progressDescription = Request::get('progressDescription');
+        $progress->animalID = Request::get('animalID');
         $progress->save();
 
         Session::flash('message','progress point successfully edited');
