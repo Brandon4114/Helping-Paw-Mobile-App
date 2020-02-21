@@ -9,9 +9,9 @@
     <div class="container">
       <nav class="navbar navbar-inverse">
         <ul class="nav navbar-nav">
-          <li><a href="{{URL::to('animals')}}">View all animals</li>
-          <li><a href="{{URL::to('progress')}}">View all progress points</li>
-          <li><a href="{{URL::to('images')}}">View all images</li>
+          <li><a href="{{URL::to('animals')}}">View all animals</a></li>
+          <li><a href="{{URL::to('progress')}}">View all progress points</a></li>
+          <li><a href="{{URL::to('images')}}">View all images</a></li>
         </ul>
 
       </nav>

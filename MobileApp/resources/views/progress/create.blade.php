@@ -1,4 +1,3 @@
-<!-- app/views/nerds/create.blade.php -->
 
 <!DOCTYPE html>
 <html>
@@ -22,8 +21,8 @@
 {{ Form::open(array('url' => 'progress')) }}
 
     <div class="form-group">
-        {{ Form::label('animalDescription', 'Animal Description') }}
-        {{ Form::select('animalDescription', $animals, array('class' => 'form-control')) }}
+        {{ Form::label('animalID', 'Animal Name') }}
+        {{ Form::select('animalID', $animals, array('class' => 'form-control')) }}
     </div>
 
     <div class="form-group">

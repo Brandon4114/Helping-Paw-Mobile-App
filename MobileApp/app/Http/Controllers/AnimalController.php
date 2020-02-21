@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Request;
 use Session;
 use Redirect;
+use Session;
 use Illuminate\Support\Facades\Input;
 class AnimalController extends Controller
 {
@@ -90,7 +91,7 @@ class AnimalController extends Controller
     public function edit($id)
     {
       $animal = Animals::find($id);
-
+      $points = Progress::where('animalID', $id);
       return View::make('animals.edit')->with('animal',$animal);
 
     }

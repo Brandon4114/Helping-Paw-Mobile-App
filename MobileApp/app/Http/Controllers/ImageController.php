@@ -38,9 +38,9 @@ class ImageController extends Controller
     {
         //Storage::put('$request->image');
         $rules = array(
-          'imageName' => 'required',
-          'imageType' => 'required'
+          'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         );
+
         $validator = Validator::make(Input::all(), $rules);
 
         if ($validator->fails()){
@@ -48,10 +48,15 @@ class ImageController extends Controller
             ->withErrors($validator)
             ->withInput(Input::except('password'));
         } else {
-          $image = new Images;
-          $image->imageName = Input::get('imageName');
-          $image->imageType = Input::get('imageType');
-          $image->save();
+          // $image = new Images;
+          // $image->imageName = Input::get('imageName');
+          // $image->imageType = Input::get('imageType');
+          // $image->save();
+          $imageName = time().'.'.request()->image->getClientOriginalExtension();
+
+
+
+        request()->image->move(public_path('images'), $imageName);
 
           Session::flash('message','Image successfully stored');
           return Redirect::to('images');

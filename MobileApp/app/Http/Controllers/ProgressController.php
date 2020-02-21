@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Request;
 use App\Progress;
 use View;
 use App\Animals;
+use Redirect;
+use Session;
+use Illuminate\Support\Facades\Validator;
 class ProgressController extends Controller
 {
     /**
@@ -38,13 +41,23 @@ class ProgressController extends Controller
      */
     public function store(Request $request)
     {
-        //Storage::put('$request->image');
+
         $rules = array(
           'animalID'  =>  'required',
           'progressDescription' => 'required',
 
         );
         $validator = Validator::make(Request::all(), $rules);
+
+        $points = Progress::all()->where('animalID','=',Request::get('animalID'));
+        if($points->isEmpty())
+        {
+          $animalPoint = 1;
+        } else{
+          $currentPoint = Progress::where('animalID','=',Request::get('animalID'))->orderBy('animalPoint','desc')->take(1)->get();
+          $animalPoint = $currentPoint[0]->animalPoint +1;
+        }
+
 
         if ($validator->fails()){
           return Redirect::to('progress/create')
@@ -54,6 +67,7 @@ class ProgressController extends Controller
           $progress= new Progress;
           $progress->progressDescription = Request::get('progressDescription');
           $progress->animalID = Request::get('animalID');
+          $progress->animalPoint = $animalPoint;
           $progress->save();
 
           Session::flash('message','progress successfully stored');

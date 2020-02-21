@@ -30,9 +30,16 @@
 
         @foreach ($progress as $key => $value)
           <tr>
-            <td><?php echo $value->imageName ?></td>
-            <td><?php echo $value->imageType ?></td>
-            <td><a href="/images/{{$value->id}}"/>edit</td>
+            <td><?php echo $value->animalPoint ?></td>
+            <td><?php echo $value->progressDescription ?></td>
+            <td><a href="/progress/{{$value->id}}/edit" class="btn btn-info"/>edit</td>
+
+              <td>
+                {{ Form::open(array('url' => 'progress/' . $value->id)) }}
+                    {{ Form::hidden('_method', 'DELETE') }}
+                    {{ Form::submit('Delete Progress Point', array('class' => 'btn btn-warning')) }}
+                {{ Form::close() }}
+              </td>
           </tr>
         @endforeach
           </table>

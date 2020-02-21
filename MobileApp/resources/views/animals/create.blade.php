@@ -1,5 +1,3 @@
-<!-- app/views/nerds/create.blade.php -->
-
 <!DOCTYPE html>
 <html>
 <head>
