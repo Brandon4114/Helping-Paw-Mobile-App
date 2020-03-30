@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 
 use App\Animals;
+use App\Progress;
 use View;
-use Illuminate\Support\Facades\Validator;
 use Request;
 use Session;
 use Redirect;
-use Session;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 class AnimalController extends Controller
 {
     /**

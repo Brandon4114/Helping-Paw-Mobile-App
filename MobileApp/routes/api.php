@@ -16,3 +16,11 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('jsonData/{id}', 'APIController@index');
+Route::get('jsonData/{Json}', 'APIController@show');
+Route::post('jsonData', 'APIController@store');
+Route::put('jsonData/{Json}', 'APIController@update');
+Route::delete('jsonData/{Json}', 'APIController@delete');
+
+Route::post('register', 'Auth\RegisterController@register');

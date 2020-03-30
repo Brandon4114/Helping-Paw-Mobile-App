@@ -11,10 +11,17 @@
 |
 */
 
-Route::get('/', 'AnimalController@index');
+Route::get('/','AnimalController@index');
 
 Route::resources([
   'animals' => 'AnimalController',
   'images' => 'ImageController',
   'progress' => 'progressController'
 ]);
+
+Route::get('/sponsors','SponsorController@index');
+Route::get('/sponsors/create','SponsorController@create');
+Route::put('/sponsors/store','SponsorController@store');
+Route::get('/sponsors/{id}','SponsorController@edit');
+Route::get('/sponsors/{id}/delete','SponsorController@destroy');
+Route::put('/sponsors/update','SponsorController@update');

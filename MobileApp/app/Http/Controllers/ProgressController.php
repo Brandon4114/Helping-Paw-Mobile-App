@@ -9,6 +9,8 @@ use App\Animals;
 use Redirect;
 use Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Input;
+
 class ProgressController extends Controller
 {
     /**
@@ -96,7 +98,8 @@ class ProgressController extends Controller
     public function edit($id)
     {
       $progress= Progress::find($id);
-      return View::make('progress.edit')->with('progress',$progress);
+      $animals = Animals::pluck('animalName','id')->toArray();
+      return View::make('progress.edit')->with(['progress'=>$progress, 'animals'=> $animals]);
     }
 
     /**

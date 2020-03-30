@@ -84,7 +84,7 @@ class ImageController extends Controller
     public function edit($id)
     {
       $image = Images::find($id);
-      return View::make('image.edit')->with('image',$image)
+      return View::make('image.edit')->with('image',$image);
     }
 
     /**
