@@ -103,7 +103,7 @@ class ImageController extends Controller
           ->withErrors($validator)
           ->withInput(Input::except('password'));
       } else {
-        $image = Images::find($id)
+        $image = Images::find($id);
         $image->imageName = Input::get('imageName');
         $image->imageType = Input::get('imageType');
         $image->save();

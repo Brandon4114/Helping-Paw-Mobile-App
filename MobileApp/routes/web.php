@@ -13,15 +13,26 @@
 
 Route::get('/','AnimalController@index');
 
+Route::put('mobileapp/progress/update','ProgressController@update');
+
 Route::resources([
-  'animals' => 'AnimalController',
-  'images' => 'ImageController',
-  'progress' => 'progressController'
+  'mobileapp/animals' => 'AnimalController',
+  'mobileapp/images' => 'ImageController',
+  'mobileapp/progress' => 'progressController'
 ]);
 
-Route::get('/sponsors','SponsorController@index');
-Route::get('/sponsors/create','SponsorController@create');
-Route::put('/sponsors/store','SponsorController@store');
-Route::get('/sponsors/{id}','SponsorController@edit');
-Route::get('/sponsors/{id}/delete','SponsorController@destroy');
-Route::put('/sponsors/update','SponsorController@update');
+Route::get('mobileapp/csv', 'CsvController@index');
+Route::post('mobileapp/csv/add', 'CsvController@Upload');
+
+Route::put('mobileapp/animalscsv/edit', 'AnimalController@csvUpload');
+Route::get('mobileapp/sponsors','SponsorController@index');
+Route::get('mobileapp/sponsors/create','SponsorController@create');
+Route::put('mobileapp/sponsors/store','SponsorController@store');
+Route::get('mobileapp/sponsors/{id}','SponsorController@edit');
+Route::get('mobileapp/sponsors/{id}/delete','SponsorController@destroy');
+Route::put('mobileapp/sponsors/update','SponsorController@update');
+
+
+
+Route::get('mobileapp/api/data/{id}', 'APIController@index');
+Route::get('mobileapp/api/progress/{id}','APIController@progress');

@@ -43,7 +43,7 @@ class SponsorController extends Controller
     }
 
     Session::flash('message','Sponsor successfully stored');
-    return Redirect::to('sponsors');
+    return Redirect::to('/mobileapp/sponsors');
 
   }
 
@@ -67,16 +67,22 @@ class SponsorController extends Controller
     $sponsored_old = Sponsor_Animals::where('SponsorID', $request->id)->pluck('animalID','id')->toArray();
 
     foreach ($sponsored_old as $key => $value) {
-      dd($key, $value, $sponsored);
+
       if(!in_array($value, $sponsored)){
+
         Sponsor_Animals::where('id',$key)->delete();
-        dd($value);
+
+        Session::flash('message','Sponsor successfully deleted');
+        return Redirect::to('/mobileapp/sponsors');
 
       } else{
-        dd(false);
+        $update_pivot = new Sponsor_Animals();
+        $update_pivot->SponsorID = $sponsor->id;
+        $update_pivot->animalID = $key;
+        $update_pivot->save();
       }
     }
-    dd($sponsored, $sponsored_old);
+
   }
 
   public function destroy($id){
@@ -88,6 +94,6 @@ class SponsorController extends Controller
     $sponsor= Sponsor::find($id);
     $sponsor->delete();
     Session::flash('message','Sponsor successfully deleted');
-    return Redirect::to('sponsors');
+    return Redirect::to('/mobileapp/sponsors');
   }
 }

@@ -13,35 +13,20 @@ class APIController extends Controller{
           $animals = Animals::whereIn('id',$sponsor_animals)->get();
 
           $progress = Progress::whereIn('animalID', $sponsor_animals)->get();
-          dd($progress);
-          return response()->json($animals, 201);
-
-      }
-
-      public function show(Animals $animals)
-      {
-          return $animals;
-      }
-
-      public function store(Request $request)
-      {
-          $animals = Animals::create($request->all());
 
           return response()->json($animals, 201);
+
       }
 
-      public function update(Request $request, Animals $animals)
-      {
-          $animals->update($request->all());
+    public function progress($id){
 
-          return response()->json($animals, 200);
-      }
+      $sponsor_animals = Sponsor_Animals::where('SponsorID',$id)->pluck('animalID');
 
-      public function delete(Animals $animals)
-      {
-          $animals->delete();
+      $animals = Animals::whereIn('id',$sponsor_animals)->get();
 
-          return response()->json(null, 204);
-      }
+      $progress = Progress::whereIn('animalID', $sponsor_animals)->get();
+
+      return response()->json($progress, 201);
+    }
 
 }

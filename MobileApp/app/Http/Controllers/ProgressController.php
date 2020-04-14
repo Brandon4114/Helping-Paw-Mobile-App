@@ -73,7 +73,7 @@ class ProgressController extends Controller
           $progress->save();
 
           Session::flash('message','progress successfully stored');
-          return Redirect::to('progress');
+          return Redirect::to('mobileapp/animals/'. Request::get('animalID').'/edit');
         }
     }
 
@@ -99,7 +99,9 @@ class ProgressController extends Controller
     {
       $progress= Progress::find($id);
       $animals = Animals::pluck('animalName','id')->toArray();
-      return View::make('progress.edit')->with(['progress'=>$progress, 'animals'=> $animals]);
+      $selected = Request::get('animalID');
+
+      return View::make('progress.edit')->with(['progress'=>$progress, 'animals'=> $animals,'selected'=> $selected]);
     }
 
     /**
@@ -109,22 +111,34 @@ class ProgressController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update( $id)
+    public function update( )
     {
+
+      $rules = array(
+        'animalID'  =>  'required',
+        'progressDescription' => 'required',
+        'progressID'  => 'required'
+
+      );
+
+      $id = Request::get('progressID');
+
       $validator = Validator::make(Request::all(), $rules);
 
       if ($validator->fails()){
-        return Redirect::to('Progress/'.$id.'create')
+        return Redirect::to('mobileapp/progress/'.$id.'create')
           ->withErrors($validator)
           ->withInput(Request::except('password'));
       } else {
+
+
         $progress= Progress::find($id);
         $progress->progressDescription = Request::get('progressDescription');
         $progress->animalID = Request::get('animalID');
         $progress->save();
 
         Session::flash('message','progress point successfully edited');
-        return Redirect::to('progress');
+        return Redirect::to('mobileapp/animals/'. Request::get('animalID').'/edit');
       }
     }
 
@@ -138,10 +152,24 @@ class ProgressController extends Controller
     {
       // delete
       $progress= Progress::find($id);
-      $progress->delete();
 
+
+      $progressPoints = Progress::where('animalID', $progress->animalID)
+                                  ->where('animalPoint','>',$progress->animalPoint)
+                                  ->get();
+      $progress->delete();
+      $this->resetProgress($progressPoints);
       // redirect
       Session::flash('message', 'Successfully deleted progress point');
-      return Redirect::to('progress');
+      return Redirect::to('mobileapp/animals/'. Request::get('animalID').'/edit');
     }
+
+    public function resetProgress($progressPoints){
+
+        foreach ($progressPoints as $key => $value) {
+            $value->animalPoint = $value->animalPoint-1;
+            $value->save();
+        }
+      }
+
 }

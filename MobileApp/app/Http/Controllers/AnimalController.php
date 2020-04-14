@@ -52,7 +52,7 @@ class AnimalController extends Controller
       $validator = Validator::make(Request::all(), $rules);
 
       if ($validator->fails()) {
-        return Redirect::to('animals/create')
+        return Redirect::to('mobileapp/animals/create')
           ->withErrors($validator)
           ->withInput(Request::except('password'));
       } else {
@@ -63,7 +63,7 @@ class AnimalController extends Controller
 
 
         Session::flash('message', 'Animal successfully created');
-        return Redirect::to('animals');
+        return Redirect::to('mobileapp/animals');
       }
     }
 
@@ -91,8 +91,8 @@ class AnimalController extends Controller
     public function edit($id)
     {
       $animal = Animals::find($id);
-      $points = Progress::where('animalID', $id);
-      return View::make('animals.edit')->with('animal',$animal);
+      $progress = Progress::where('animalID', $id)->get();
+      return View::make('animals.edit')->with(['animal'=>$animal,'progress'=>$progress]);
 
     }
 
@@ -105,7 +105,7 @@ class AnimalController extends Controller
       $validator = Validator::make(Request::all(), $rules);
 
       if ($validator->fails()) {
-        return Redirect::to('animals'.$id.'/edit')
+        return Redirect::to('mobileapp/animals'.$id.'/edit')
           ->withErrors($validator)
           ->withInput(Request::except('password'));
       } else {
@@ -116,7 +116,7 @@ class AnimalController extends Controller
 
 
         Session::flash('message', 'Animal successfully updated');
-        return Redirect::to('animals');
+        return Redirect::to('mobileapp/animals');
       }
     }
 
@@ -128,7 +128,7 @@ class AnimalController extends Controller
 
       // redirect
       Session::flash('message', 'Successfully deleted animal!');
-      return Redirect::to('animals');
+      return Redirect::to('mobileapp/animals');
     }
 
 
