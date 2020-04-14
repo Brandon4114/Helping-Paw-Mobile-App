@@ -10,9 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.ce301charityapp.R
 import com.example.android.ce301charityapp.databinding.FragmentDetailBinding
 import com.example.android.ce301charityapp.ui.shared.SharedViewModel
+import kotlinx.android.synthetic.main.main_fragment.*
 
 class DetailFragment : Fragment() {
 

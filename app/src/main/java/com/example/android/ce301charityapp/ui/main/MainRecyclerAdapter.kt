@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.android.ce301charityapp.Data.Animal
+import com.example.android.ce301charityapp.data.Animal
 import com.example.android.ce301charityapp.R
 import com.example.android.ce301charityapp.ui.utiilities.PreferenceHelper
 

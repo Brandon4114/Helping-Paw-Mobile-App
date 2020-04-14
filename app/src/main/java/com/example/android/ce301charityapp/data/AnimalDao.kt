@@ -1,4 +1,4 @@
-package com.example.android.ce301charityapp.Data
+package com.example.android.ce301charityapp.data
 
 import androidx.room.Dao
 import androidx.room.Insert

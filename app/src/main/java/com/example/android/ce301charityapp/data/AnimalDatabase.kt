@@ -1,4 +1,4 @@
-package com.example.android.ce301charityapp.Data
+package com.example.android.ce301charityapp.data
 
 import android.content.Context
 import androidx.room.Database
@@ -6,11 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Animal::class,AnimalProgressPoints::class], version =4, exportSchema = false)
+@Database(entities = [Animal::class,ProgressPoints::class], version =7, exportSchema = false)
 abstract class AnimalDatabase: RoomDatabase() {
 
     abstract fun animalDao(): AnimalDao
-    abstract fun animalProgressPoints(): AnimalProgressPointsDao
+    abstract fun progressDao(): ProgressPointsDao
 
     companion object{
         @Volatile
