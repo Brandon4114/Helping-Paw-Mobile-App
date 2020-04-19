@@ -13,8 +13,9 @@ class SharedViewModel(val app: Application) : AndroidViewModel(app) {
     val animalData = dataRepo.animalData
     val selectedAnimal = MutableLiveData<Animal>()
     val activityTitle = MutableLiveData<String>()
-    val progressData = dataRepo.progressDao.
-    val selectedData = progressData.g
+
+    val progressData = dataRepo.progressData
+
 
     init {
         updateActivityTitle()

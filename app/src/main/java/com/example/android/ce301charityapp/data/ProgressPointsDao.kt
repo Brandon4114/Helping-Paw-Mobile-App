@@ -15,6 +15,7 @@ interface ProgressPointsDao {
     @Query("DELETE from Progress")
     suspend fun deleteAll()
 
-    @Query ("SELECT * FROM Progress WHERE animalPoint = :Selected ")
-    public abstract  fun progress(int: Selected): List<ProgressPoints>
+    @Query("SELECT * FROM progress WHERE animalID = :slectedAnimal")
+    fun selectedProgress(slectedAnimal: Int): Array<ProgressPoints>
+
 }

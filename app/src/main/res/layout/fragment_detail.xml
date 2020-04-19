@@ -9,11 +9,9 @@
                 name="viewModel"
                 type="com.example.android.ce301charityapp.ui.shared.SharedViewModel"/>
     </data>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="16dp">
 
@@ -59,21 +57,35 @@
             android:layout_width="382dp"
             android:layout_height="46dp"
             android:layout_marginTop="32dp"
-            android:text="@{viewModel.progress}"
+            android:text="@string/progress_points"
             android:textSize="36sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/progressItem"
-            android:layout_width="409dp"
-            android:layout_height="225dp"
-            android:layout_marginTop="24dp"
+            tools:listitem="@layout/progress_item"
+            android:id="@+id/recyclerViewPoints"
+            android:layout_width="382dp"
+            android:layout_height="122dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/progress_title" />
 
+        <TextView
+            android:id="@+id/gallery_title"
+            android:layout_width="382dp"
+            android:layout_height="46dp"
+            android:text="@string/gallery"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerViewPoints" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+
+
+
+
 </layout>

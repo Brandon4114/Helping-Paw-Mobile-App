@@ -30,7 +30,6 @@ class MainFragment : Fragment(),
 
     override fun animalItemListener(animal: Animal) {
         viewModel.selectedAnimal.value = animal
-        viewModel.selectedData.value = progressDao
         navController.navigate(R.id.action_nav_detail)
     }
 
@@ -67,8 +66,7 @@ class MainFragment : Fragment(),
         {
 
             adapter = MainRecyclerAdapter(requireContext(), it, this)
-            recyclerView.layoutManager =
-                LinearLayoutManager(requireContext())
+            recyclerView.layoutManager = LinearLayoutManager(requireContext())
             recyclerView.adapter = adapter
         })
 

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "Progress")
 data class ProgressPoints (
     @PrimaryKey(autoGenerate = true)
-    val ID: Int,
+    val id: Int,
     val animalID: Int,
     val animalPoint: Int,
     val progressDescription: String
