@@ -1,6 +1,9 @@
 package com.example.android.ce301charityapp.ui.main
 
+import android.app.DownloadManager
+import android.content.Context
 import android.os.Bundle
+import android.os.Environment
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -16,10 +19,11 @@ import com.example.android.ce301charityapp.data.Animal
 import com.example.android.ce301charityapp.R
 import com.example.android.ce301charityapp.ui.utiilities.PreferenceHelper
 import com.example.android.ce301charityapp.ui.shared.SharedViewModel
+import java.io.File
 
 
 class MainFragment : Fragment(),
-    MainRecyclerAdapter.AnimalItemListener{
+    MainRecyclerAdapter.AnimalItemListener {
 
     private lateinit var viewModel: SharedViewModel
     private lateinit var recyclerView: RecyclerView
@@ -47,7 +51,7 @@ class MainFragment : Fragment(),
         recyclerView = view.findViewById(R.id.recyclerView)
         val layoutStyle = PreferenceHelper.getItemType(requireContext())
         recyclerView.layoutManager =
-            if(layoutStyle == "grid"){
+            if (layoutStyle == "grid") {
                 GridLayoutManager(requireContext(), 2)
             } else {
                 LinearLayoutManager(requireContext())
@@ -83,7 +87,6 @@ class MainFragment : Fragment(),
     }
 
 
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_view_grid -> {
@@ -98,11 +101,11 @@ class MainFragment : Fragment(),
                     LinearLayoutManager(requireContext())
                 recyclerView.adapter = adapter
             }
-            R.id.action_settings -> {
-                navController.navigate(R.id.settings)
-            }
         }
         return true
     }
+
+
+
 
 }

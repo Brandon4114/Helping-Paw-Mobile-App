@@ -6,12 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Animal::class,ProgressPoints::class], version =11, exportSchema = false)
+@Database(entities = [Animal::class,ProgressPoints::class,Images::class], version =13, exportSchema = false)
 abstract class AnimalDatabase: RoomDatabase() {
 
     abstract fun animalDao(): AnimalDao
     abstract fun progressDao(): ProgressPointsDao
-
+    abstract fun imageDao(): ImagesDao
     companion object{
         @Volatile
         private var INSTANCE: AnimalDatabase? = null

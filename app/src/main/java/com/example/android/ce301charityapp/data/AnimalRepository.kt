@@ -1,23 +1,30 @@
 package com.example.android.ce301charityapp.data
 
 import android.app.Application
+import android.app.DownloadManager
 import android.content.Context
+import android.database.Cursor
 import android.net.ConnectivityManager
-import android.util.Log
 import android.widget.Toast
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.MutableLiveData
-import com.example.android.ce301charityapp.LOG_TAG
 import com.example.android.ce301charityapp.WEB_SERVICE_URL
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.os.AsyncTask
+import android.os.Environment
+import android.util.Log
+import java.io.File
+import java.io.FileOutputStream
+import java.net.URL
+
 
 class AnimalRepository(val app: Application) {
 
@@ -27,46 +34,16 @@ class AnimalRepository(val app: Application) {
     val progressData = MutableLiveData<List<ProgressPoints>>()
     val progressDao = AnimalDatabase.getDatabase(app).progressDao()
 
-
+    val imageData = MutableLiveData<List<Images>>()
+    val imageDao = AnimalDatabase.getDatabase(app).imageDao()
     init {
 
         CoroutineScope(Dispatchers.IO).launch {
 
             callWebService()
-//            val data = animalDao.getAll()
-//            if (data.isEmpty()) {
-//
-//
-//                val animalData = FileHelper.getTextFromAssets(app, "animal_data.json" )
-//                parseJsonAnimalData(animalData)
-//
-//            } else {
-//
-//                animalData.postValue(data)
-//                withContext(Dispatchers.Main) {
-//                    Toast.makeText(app, "Using local data", Toast.LENGTH_LONG).show()
-//                }
-//            }
+
         }
     }
-//    private suspend fun parseJsonAnimalData(text:String){
-//
-//        val moshi = Moshi.Builder().build()
-//        val adapter: JsonAdapter<List<Animal>> = moshi.adapter(listType1)
-//
-//        val animalData : List<Animal>? = adapter.fromJson(text)
-//
-//        if (animalData != null) {
-//            animalDao.insertAnimals(animalData)
-//        }
-//
-//        if (animalData != null) {
-//            for (animal in animalDao.getAll()){
-//                Log.i(LOG_TAG, "test ${animal.ID} | ${animal.animalName} | ${animal.animalDescription}")
-//            }
-//        }
-//    }
-
 
     @WorkerThread
     suspend fun callWebService() {
@@ -85,18 +62,22 @@ class AnimalRepository(val app: Application) {
             val progressService = retrofit.create(ProgressService::class.java)
             val progressServiceData = progressService.getProgressData().body() ?: emptyList()
 
+            val imageService = retrofit.create(ImageService::class.java)
+            val imageServiceData = imageService.getImageData().body() ?: emptyList()
+
             animalDao.deleteAll()
             progressDao.deleteAll()
+            imageDao.deleteAll()
 
             animalData.postValue(animalServiceData)
             animalDao.insertAnimals(animalServiceData)
 
-            Log.i(LOG_TAG, "$animalServiceData")
 
             progressData.postValue(progressServiceData)
             progressDao.insertProgress(progressServiceData)
 
-
+            imageData.postValue(imageServiceData)
+            imageDao.insertImages(imageServiceData)
         }
     }
     @Suppress("DEPRECATION")

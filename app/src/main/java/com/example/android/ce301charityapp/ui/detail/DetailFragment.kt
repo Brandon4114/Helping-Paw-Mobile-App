@@ -15,6 +15,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.android.ce301charityapp.LOG_TAG
 import com.example.android.ce301charityapp.R
+import com.example.android.ce301charityapp.data.Images
 import com.example.android.ce301charityapp.data.ProgressPoints
 import com.example.android.ce301charityapp.databinding.FragmentDetailBinding
 import com.example.android.ce301charityapp.ui.shared.SharedViewModel
@@ -58,8 +59,15 @@ class DetailFragment : Fragment() {
         val progress = getProgressItems(viewModel.progressData, viewModel.selectedAnimal.value!!.id)
         Log.i(LOG_TAG, "$progress")
 
+        val images = getImages(viewModel.imageData,viewModel.selectedAnimal.value!!.id)
+        Log.i(LOG_TAG,"$images")
         recyclerViewPoints.layoutManager = LinearLayoutManager(activity)
         recyclerViewPoints.adapter = progress?.let { DetailRecyclerAdapter(it) }
+
+        recyclerViewGallery.layoutManager = LinearLayoutManager(activity)
+        recyclerViewGallery.adapter = images?.let {GalleryRecyclerAdapter(context,it)}
+
+
 
     }
 
@@ -75,5 +83,9 @@ class DetailFragment : Fragment() {
         return oldlist?.filter { it.animalID == id }
     }
 
+    private fun getImages(list: MutableLiveData<List<Images>>, id: Int): List<Images>? {
+        val oldlist = list.value
+        return oldlist?.filter { it.animalID == id }
+    }
 
 }

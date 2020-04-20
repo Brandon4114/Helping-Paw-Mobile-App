@@ -6,8 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.android.ce301charityapp.data.Animal
 import com.example.android.ce301charityapp.R
+import com.example.android.ce301charityapp.data.Images
 import com.example.android.ce301charityapp.ui.utiilities.PreferenceHelper
 
 
@@ -41,6 +43,7 @@ class MainRecyclerAdapter(
                 itemListener.animalItemListener(animal)
             }
         }
+
     }
 
 

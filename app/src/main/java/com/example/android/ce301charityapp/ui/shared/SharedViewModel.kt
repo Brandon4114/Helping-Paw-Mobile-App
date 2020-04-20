@@ -15,6 +15,7 @@ class SharedViewModel(val app: Application) : AndroidViewModel(app) {
     val activityTitle = MutableLiveData<String>()
 
     val progressData = dataRepo.progressData
+    val imageData = dataRepo.imageData
 
 
     init {
