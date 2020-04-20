@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -42,14 +43,20 @@ class MainRecyclerAdapter(
             holder.itemView.setOnClickListener{
                 itemListener.animalItemListener(animal)
             }
+            if (profileImage != null) {
+                Glide.with(context)
+                    .load(animal.ImageUrl)
+                    .into(profileImage)
+            }
+
         }
 
     }
 
-
     inner class ViewHolder(itemView: View):
             RecyclerView.ViewHolder(itemView){
         val animalName: TextView = itemView.findViewById(R.id.nameText)
+        val profileImage: ImageView? = itemView.findViewById(R.id.animalImage)
 
     }
     interface AnimalItemListener {

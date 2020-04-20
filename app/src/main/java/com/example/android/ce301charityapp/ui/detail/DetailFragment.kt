@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -13,6 +14,8 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.android.ce301charityapp.LOG_TAG
 import com.example.android.ce301charityapp.R
 import com.example.android.ce301charityapp.data.Images
@@ -20,6 +23,8 @@ import com.example.android.ce301charityapp.data.ProgressPoints
 import com.example.android.ce301charityapp.databinding.FragmentDetailBinding
 import com.example.android.ce301charityapp.ui.shared.SharedViewModel
 import kotlinx.android.synthetic.main.fragment_detail.*
+import kotlinx.android.synthetic.main.fragment_detail.profile_image
+import kotlinx.android.synthetic.main.fragment_detail.view.*
 
 class DetailFragment : Fragment() {
 
@@ -49,6 +54,9 @@ class DetailFragment : Fragment() {
         )
 
 
+
+
+
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
@@ -67,7 +75,11 @@ class DetailFragment : Fragment() {
         recyclerViewGallery.layoutManager = LinearLayoutManager(activity)
         recyclerViewGallery.adapter = images?.let {GalleryRecyclerAdapter(context,it)}
 
-
+        with(view){
+                Glide.with(context)
+                    .load(viewModel.selectedAnimal.value!!.ImageUrl)
+                    .into(view.findViewById(R.id.profile_image))
+        }
 
     }
 

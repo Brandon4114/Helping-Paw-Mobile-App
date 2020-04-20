@@ -5,8 +5,11 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Environment
 import android.view.*
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
@@ -17,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.android.ce301charityapp.data.Animal
 import com.example.android.ce301charityapp.R
+import com.example.android.ce301charityapp.data.Images
 import com.example.android.ce301charityapp.ui.utiilities.PreferenceHelper
 import com.example.android.ce301charityapp.ui.shared.SharedViewModel
 import java.io.File
@@ -104,6 +108,12 @@ class MainFragment : Fragment(),
         }
         return true
     }
+
+    private fun getprofileImage(list: MutableLiveData<List<Images>>, id: Int): List<Images>? {
+        val oldlist = list.value
+        return oldlist?.filter { it.animalID == id }
+    }
+
 
 
 

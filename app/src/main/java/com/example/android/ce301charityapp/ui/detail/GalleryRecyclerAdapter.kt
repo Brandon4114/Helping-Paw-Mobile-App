@@ -38,7 +38,7 @@ class GalleryRecyclerAdapter(val context: Context?, val images: List<Images>) : 
 
 
     inner class ImageViewHolder(val view: View) : RecyclerView.ViewHolder(view){
-        val galleryImage: ImageView? = itemView.findViewById<ImageView>(R.id.galleryImage)
+        val galleryImage: ImageView? = itemView.findViewById(R.id.galleryImage)
 
     }
 }
