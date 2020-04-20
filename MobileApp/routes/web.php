@@ -21,6 +21,9 @@ Route::resources([
   'mobileapp/progress' => 'progressController'
 ]);
 
+Route::get('mobileapp/images/create/{id}', 'ImageController@create');
+Route::get('mobileapp/images/edit/{id}/{animalID}', 'ImageController@edit');
+Route::get('mobileapp/images/update', 'ImageController@edit');
 Route::get('mobileapp/csv', 'CsvController@index');
 Route::post('mobileapp/csv/add', 'CsvController@Upload');
 
@@ -36,3 +39,4 @@ Route::put('mobileapp/sponsors/update','SponsorController@update');
 
 Route::get('mobileapp/api/data/{id}', 'APIController@index');
 Route::get('mobileapp/api/progress/{id}','APIController@progress');
+Route::get('mobileapp/api/images/{id}','APIController@gallery');

@@ -2,9 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Images;
 use View;
+use Session;
+use Redirect;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
+
 class ImageController extends Controller
 {
     /**
@@ -36,31 +44,23 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //Storage::put('$request->image');
-        $rules = array(
-          'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        );
+        $file = $request->file('image');
+        $type = explode('/',$file->getMimeType());
+        $randomStr = Str::random(7);
 
-        $validator = Validator::make(Input::all(), $rules);
+        $name = $randomStr.".".$type[1];
 
-        if ($validator->fails()){
-          return Redirect::to('images/create')
-            ->withErrors($validator)
-            ->withInput(Input::except('password'));
-        } else {
-          // $image = new Images;
-          // $image->imageName = Input::get('imageName');
-          // $image->imageType = Input::get('imageType');
-          // $image->save();
-          $imageName = time().'.'.request()->image->getClientOriginalExtension();
+        $file->storeAs('public',$name);
 
+        $image = new Images;
+        $image->animalID = $request->get('animalID');
+        $image->imageName = $randomStr;
+        $image->imageType = $type[1];
+        $image->save();
 
+        Session::flash('message','Image successfully stored');
+        return Redirect::to('mobileapp/animals/'.$request->get('animalID').'/edit');
 
-        request()->image->move(public_path('images'), $imageName);
-
-          Session::flash('message','Image successfully stored');
-          return Redirect::to('images');
-        }
     }
 
     /**
@@ -81,10 +81,11 @@ class ImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $animalID)
     {
+
       $image = Images::find($id);
-      return View::make('image.edit')->with('image',$image);
+      return View::make('images.edit')->with(['image'=>$image,'animalID'=>$animalID]);
     }
 
     /**
@@ -94,23 +95,40 @@ class ImageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update( $id)
+    public function update( Request $request)
     {
-      $validator = Validator::make(Input::all(), $rules);
 
-      if ($validator->fails()){
-        return Redirect::to('images/'.$id.'create')
-          ->withErrors($validator)
-          ->withInput(Input::except('password'));
-      } else {
-        $image = Images::find($id);
-        $image->imageName = Input::get('imageName');
-        $image->imageType = Input::get('imageType');
-        $image->save();
+
+
+        // $file = $request->file('image');
+        // $type = explode('/',$file->getMimeType());
+        // $imageId = $request->get('imageID');
+        // $randomStr = Str::random(7);
+        //
+        //
+        // $image = Images::find($request->get('imageID'));
+        //
+        // $filepath = app_path('public\\'.$image->ImageName.'.'.$image->imageType);
+        //
+        // if(File::exists($filepath)){
+        //   dd(true);
+        // } else dd(false);
+        // File::delete($image->ImageName);
+        //
+        // $name = $image->animalID.'-'.$randomStr.'.'.$type[1];
+        // $image->imageName = $name;
+        // $image->save();
+
+
+        // $file->storeAs('public',$name);
+
+        // $image->imageName = Request::get('imageName');
+        // $image->imageType = Request::get('imageType');
+        // $image->save();
 
         Session::flash('message','Image successfully edited');
         return Redirect::to('images');
-      }
+
     }
 
     /**

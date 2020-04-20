@@ -11,7 +11,9 @@ class Animals extends Model
   use HasApiTokens, Notifiable;
    protected $fillable = [
      'animalName',
-     'animalDescription'
+     'animalDescription',
+     'imageName',
+     'imageType'
    ];
 
 

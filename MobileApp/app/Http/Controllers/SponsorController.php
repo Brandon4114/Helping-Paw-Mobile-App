@@ -66,23 +66,15 @@ class SponsorController extends Controller
     $sponsored = $request->animals;
     $sponsored_old = Sponsor_Animals::where('SponsorID', $request->id)->pluck('animalID','id')->toArray();
 
-    foreach ($sponsored_old as $key => $value) {
-
-      if(!in_array($value, $sponsored)){
-
-        Sponsor_Animals::where('id',$key)->delete();
-
-        Session::flash('message','Sponsor successfully deleted');
-        return Redirect::to('/mobileapp/sponsors');
-
-      } else{
-        $update_pivot = new Sponsor_Animals();
-        $update_pivot->SponsorID = $sponsor->id;
-        $update_pivot->animalID = $key;
-        $update_pivot->save();
+    if(empty($sponsored_old)){
+      foreach ($sponsored as $key => $value) {
+        $new_sponsor = new Sponsor_Animals;
+        $new_sponsor->SponsorID = $sponsor->id;
+        $new_sponsor->animalID = $value;
+        $new_sponsor->save();
       }
     }
-
+    return Redirect::to('/mobileapp/sponsors');
   }
 
   public function destroy($id){

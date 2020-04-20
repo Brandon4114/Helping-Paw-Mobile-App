@@ -5,12 +5,16 @@ namespace App\Http\Controllers;
 
 use App\Animals;
 use App\Progress;
+use App\Images;
 use View;
-use Request;
 use Session;
 use Redirect;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
+
 class AnimalController extends Controller
 {
     /**
@@ -42,29 +46,41 @@ class AnimalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store()
+    public function store(Request $request)
     {
-      $rules = array(
-        'animalName'        => 'required',
-        'animalDescription' => 'required'
-      );
+      // $rules = array(
+      //   'animalName'        => 'required',
+      //   'animalDescription' => 'required'
+      // );
+      //
+      // $validator = Validator::make(Request::all(), $rules);
 
-      $validator = Validator::make(Request::all(), $rules);
 
-      if ($validator->fails()) {
-        return Redirect::to('mobileapp/animals/create')
-          ->withErrors($validator)
-          ->withInput(Request::except('password'));
-      } else {
+      $file = $request->file('image');
+      $type = explode('/',$file->getMimeType());
+      $randomStr = Str::random(7);
+
+      $name = $randomStr.".".$type[1];
+
+      $file->storeAs('public',$name);
+
+
+      // if ($validator->fails()) {
+      //   return Redirect::to('mobileapp/animals/create')
+      //     ->withErrors($validator)
+      //     ->withInput(Request::except('password'));
+      // } else {
         $animal = new Animals;
-        $animal->animalName = Request::get('animalName');
-        $animal->animalDescription = Request::get('animalDescription');
+        $animal->animalName = $request->get('animalName');
+        $animal->animalDescription = $request->get('animalDescription');
+        $animal->imageName = $name;
+        $animal->imageType = $type[1];
         $animal->save();
 
 
         Session::flash('message', 'Animal successfully created');
         return Redirect::to('mobileapp/animals');
-      }
+      // }
     }
 
 
@@ -92,7 +108,9 @@ class AnimalController extends Controller
     {
       $animal = Animals::find($id);
       $progress = Progress::where('animalID', $id)->get();
-      return View::make('animals.edit')->with(['animal'=>$animal,'progress'=>$progress]);
+      $images = Images::where('animalID',$id)->get();
+
+      return View::make('animals.edit')->with(['animal'=>$animal,'progress'=>$progress,'images'=>$images]);
 
     }
 
