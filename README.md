@@ -1,32 +1,67 @@
-# Project Title
-A *brief* paragraph explaining your project and what it does should be written here. The idea is to give readers an overview of what it is that you've built.
+# Helping Paw: MObile Application
 
+This is an android mobile application which aims to create a better experiecne for thoese who sponsor animals from different charities. To do this I have created
+a mobile application for android devices whick will connect to a  web server in order to collect all the necessary data about the animals the user sponsors.
+This mixture of technologies aims to show how a mixture of digital and physical mediums can be digitized into a single application.
 ## Getting Started (Software Based)
-You should write a bit about **how** I can get your project working, It's good to think in terms of the following sections:
+
 
 ### Prerequisites
-What do I need in order to get your project running? For example,
-* Python 3.5 (or later)
-* sqlalchemy
+in order to run the project fully the user will need working versions of:
+* Java 1.8  (or later)
+* XAMPP (Apache and SQL modules downloaded)
+* Android Studio
+* Laravel (6.18.8 or later)
+* Composer (version 1.9.1)
 
 ### Installing
-A step by step guide on how to build and install your software, for example:
+In order to run the web application the user must install XAMPP, once this has been done extract the MobileApp and paste into
+the htdocs folder where XAMPP is installed.
+
+once XAMPP have been installed open the control panel and selct MySQL Admin.
+from here create a new database called "mobile_app_db"
+
+
+The rest of the project should be placed within Android studios projects folder called "CE301CharityApp"
+
+To run the application in android studio you must install  a virtual device using Android Studio's AVD manager
+the current build of the project uses the Pixel 2 and must use API 29 or higher.
+
 
 #### Edit the configuration file
-In myconfig.ini, change the following settings to match your requirements:
+In the MobileApp folder the .env file, the first 14 lines should appear as
+```
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=base64:puZRhrumT0Gox4I5JlnRddaXcEAzGKI4XQGwgdOXJ9Q=
+APP_DEBUG=true
+APP_URL=http://localhost
 
+LOG_CHANNEL=stack
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1:3307
+DB_PORT=3306
+DB_DATABASE= mobile_app_db
+DB_USERNAME=root
+DB_PASSWORD=
 ```
-database_name=test
-database_user=test
-database_pass=password
-```
+
+From the XAMPP control panel > MySQL >  config > my.ini
+replace all occurances of 3306 with 3307
+This will allow the web applicaiton to acces the databse
 
 #### Install libraries and run program
 
-```
-pip install -r requirements.txt
-python3 main.py
-```
+In CLI navigate to the MobileApp folder inside XAMPP and 
+user "composer install or upadte to make sure it is installed"
+use "php artisan migrate" to run all migration
+
+Once the migrations have been made, start the Apache and MySQL modules and use "localhost/MobileApp" 
+to acces the web page
+
+After the web application is running use Android studios make project feature (Ctr+ F9) 
+and run the build (Shift + F10)
 
 ### Running Tests
 How do I run your tests? Make it as easy as possible to do this!
@@ -36,27 +71,9 @@ pip install -r requirements.txt
 ./tests.py
 ```
 
-### Versioning Statergy
-What versioning statergy are you using for your project, something like [semantic versioning](https://semver.org/) might be a good idea.
-
-## Getting Started (Hardware Based)
-
-### Pre-requisites
-
-* Components
-* PBC
-* etc..
- 
-### Component Testing
-### PCB Board design
-### System Building
-### Hardware version Stratgery
 
 ## Authors
-Provide your names here
-* Fred Bloggs - UI Design
 
-## References
-* [Gitlab Markdown Guide](https://docs.gitlab.com/ee/user/markdown.html)
-* [Example 1](https://github.com/erasmus-without-paper/ewp-specs-sec-intro/tree/v2.0.2)
-* [Example 2](https://github.com/erasmus-without-paper/ewp-specs-architecture/tree/v1.10.0)
+* Brandon Hull
+
+
