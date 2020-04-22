@@ -109,13 +109,5 @@ class MainFragment : Fragment(),
         return true
     }
 
-    private fun getprofileImage(list: MutableLiveData<List<Images>>, id: Int): List<Images>? {
-        val oldlist = list.value
-        return oldlist?.filter { it.animalID == id }
-    }
-
-
-
-
 
 }

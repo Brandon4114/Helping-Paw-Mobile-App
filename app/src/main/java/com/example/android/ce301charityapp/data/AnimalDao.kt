@@ -16,3 +16,4 @@ interface AnimalDao {
     @Query("DELETE from animals")
     suspend fun deleteAll()
 }
+

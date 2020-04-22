@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.preference.PreferenceManager
 import com.example.android.ce301charityapp.data.Animal
 import com.example.android.ce301charityapp.data.AnimalRepository
-import com.example.android.ce301charityapp.data.ProgressPoints
 
 class SharedViewModel(val app: Application) : AndroidViewModel(app) {
     private val dataRepo = AnimalRepository(app)

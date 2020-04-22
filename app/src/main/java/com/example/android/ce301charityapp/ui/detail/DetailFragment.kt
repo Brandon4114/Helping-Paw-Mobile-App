@@ -53,10 +53,6 @@ class DetailFragment : Fragment() {
             inflater, container, false
         )
 
-
-
-
-
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 

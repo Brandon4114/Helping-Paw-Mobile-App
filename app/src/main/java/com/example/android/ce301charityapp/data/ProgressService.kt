@@ -5,6 +5,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface ProgressService {
-    @GET(WEB_SERVICE_URL +"api/progress/6")
+    @GET(WEB_SERVICE_URL +"api/progress/1")
     suspend fun getProgressData(): Response<List<ProgressPoints>>
 }

@@ -5,6 +5,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface ImageService {
-    @GET(WEB_SERVICE_URL +"api/images/6")
+    @GET(WEB_SERVICE_URL +"api/images/1")
     suspend fun getImageData(): Response<List<Images>>
 }

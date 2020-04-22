@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Animal::class,ProgressPoints::class,Images::class], version =14, exportSchema = false)
+@Database(entities = [Animal::class,ProgressPoints::class,Images::class], version = 14, exportSchema = false)
 abstract class AnimalDatabase: RoomDatabase() {
 
     abstract fun animalDao(): AnimalDao
@@ -30,3 +30,4 @@ abstract class AnimalDatabase: RoomDatabase() {
         }
     }
 }
+
